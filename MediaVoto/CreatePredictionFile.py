@@ -43,7 +43,7 @@ Squadre = ['Atalanta','Benevento','Bologna','Cagliari','Crotone','Fiorentina','G
 Squadre = [x.upper() for x in Squadre]
 
 for club in Squadre:
-        output = CreateInputML(7,club,'7',output,dPlayers,dTeam,dCalendar) #SET THE NUMBER TO THE LAST GIORNATA PLAYED
+        output = CreateInputML(8,club,'8',output,dPlayers,dTeam,dCalendar) #SET THE NUMBER TO THE LAST GIORNATA PLAYED
 
 output.to_excel('ML_MediaVoto_prediction.xlsx')
 

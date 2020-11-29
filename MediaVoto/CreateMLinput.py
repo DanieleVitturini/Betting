@@ -46,7 +46,7 @@ dPlayers = dPlayers.replace(np.NaN,0)
 output = pd.DataFrame()
 
 #Giornate = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20']
-Giornate = np.arange(5,8)
+Giornate = np.arange(5,9)
 Squadre = ['Atalanta','Benevento','Bologna','Cagliari','Crotone','Fiorentina','Genoa','Inter','Juventus','Lazio','Milan','Napoli','Parma','Roma','Sampdoria','Sassuolo','Spezia','Torino','Udinese','Verona']
 Squadre = [x.upper() for x in Squadre]
 

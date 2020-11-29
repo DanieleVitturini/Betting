@@ -39,28 +39,119 @@ sc_X = StandardScaler()
 X_train = sc_X.fit_transform(X_train)
 X_test = sc_X.transform(X_test)
 
+#PROVO ALTRI MODELLI
+from sklearn.metrics import accuracy_score, log_loss
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC, LinearSVC, NuSVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, GradientBoostingClassifier
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
+classifiers = [
+    KNeighborsClassifier(3),
+    SVC(kernel="rbf",random_state=0, probability=True),
+    DecisionTreeClassifier(),
+    RandomForestClassifier(),
+    AdaBoostClassifier(),
+    GradientBoostingClassifier()
+    ]
+for classifier in classifiers:
+    model = classifier.fit(X_train, y_train)
+    print(classifier)
+    print("model score: %.3f" % model.score(X_test, y_test))
+ 
+#TRY TO FIND BEST PARAMETERS FOR EACH MODEL
+#1) KNEIGHBORS because it gives best results
+from sklearn.model_selection import GridSearchCV
+p = [1, 2, 3, 4, 5, 6]
+leaf_size = [5, 15, 20, 30, 35, 50, 80]
+n_neighbors = [1,2, 3, 4, 5, 7, 10]
+weights = ['uniform', 'distance']
+param_grid = dict(p = p, leaf_size = leaf_size,  
+              n_neighbors = n_neighbors, 
+             weights = weights)
+kn = KNeighborsClassifier(3)
+grid_search = GridSearchCV(estimator=kn, param_grid=param_grid)
+best_model = grid_search.fit(X_train, y_train)
+print(round(best_model.score(X_test, y_test),2))
+print(best_model.best_params_)
+
+#best_model = KNeighborsClassifier(3).fit(X_train, y_train)
+#print(best_model.score(X_test,y_test),2)
+#TEST TEST TEST
+from sklearn.metrics import classification_report
+y_pred_best = best_model.predict(X_test)
+print(classification_report(y_test, y_pred_best))
+
+
+
+
+#2)RandomForestClassifier
+from sklearn.model_selection import GridSearchCV
+n_estimators = [100, 300, 500, 800, 1200]
+max_depth = [5, 8, 15, 25, 30]
+min_samples_split = [2, 5, 10, 15, 100]
+min_samples_leaf = [1, 2, 5, 10]
+param_grid = dict(n_estimators = n_estimators, max_depth = max_depth,  
+              min_samples_split = min_samples_split, 
+             min_samples_leaf = min_samples_leaf)
+rf = RandomForestClassifier()
+grid_search = GridSearchCV(estimator=rf, param_grid=param_grid)
+best_model = grid_search.fit(X_train, y_train)
+print(round(best_model.score(X_test, y_test),2))
+print(best_model.best_params_)
+
+from sklearn.metrics import classification_report
+y_pred_best = best_model.predict(X_test)
+print(classification_report(y_test, y_pred_best))
+
+
+
+#3)SVC
+from sklearn.model_selection import GridSearchCV
+C = [1, 2, 3]
+random_state = [0, 1]
+kernel = ['poly', 'rbf', 'sigmoid']
+degree = [2, 3, 4]
+coef0 = [0, 1]
+param_grid = dict(C = C, kernel= kernel,
+             degree = degree, coef0 = coef0
+             )
+sv = SVC()
+grid_search = GridSearchCV(estimator=sv, param_grid=param_grid)
+best_model = grid_search.fit(X_train, y_train)
+print(round(best_model.score(X_test, y_test),2))
+print(best_model.best_params_)
+
+from sklearn.metrics import classification_report
+y_pred_best = best_model.predict(X_test)
+print(classification_report(y_test, y_pred_best))
+
+#OLD PETER
 #Fitting the classifier to the Training set
 from sklearn.svm import SVC
 classifier = SVC(kernel='rbf', random_state=0, probability=True)
-classifier.fit(X_train,y_train)
+classifier.fit(X_train,y_train)    
 
 #Predicting test results
-y_pred = classifier.predict(X_test)
+#best_model=KNeighborsClassifier(3)
+#best_model.fit(X_train,y_train)
+y_pred = best_model.predict(X_test)
 
 #Making the confusion matrix
 from sklearn.metrics import confusion_matrix #it's a function..not a class!
 cm = confusion_matrix(y_test,y_pred)
 
 #Probability
-results = classifier.predict_proba(X_test)
+results = best_model.predict_proba(X_test)
 
 ###EVALUATING QUOTES WITH KELLY FACTOR ###
 InScommessa = pd.read_excel('Input_Scommessa_9.xlsx')
 kellyTest = InScommessa.iloc[:, 1:3].values
 
 kellyTest = sc_X.transform(kellyTest)
-kellyPredict = classifier.predict(kellyTest)
-probability = classifier.predict_proba(kellyTest)
+kellyPredict = best_model.predict(kellyTest)
+probability = best_model.predict_proba(kellyTest)
 
 HomeQuotes = InScommessa['HomeWin']
 DrawQuotes = InScommessa['Draw']

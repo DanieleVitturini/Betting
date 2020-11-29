@@ -58,7 +58,7 @@ dPlayers = pd.read_excel('MediaVoto_giocatori.xlsx')
 Output = dPlayers[['Cod.','Giocatore','Ruolo','Squadra']]
 Output = pd.merge(Output,prediction[['Cod.','Prediction']],on='Cod.')
 Output = Output.drop_duplicates(subset = 'Giocatore', keep = 'last')
-Output.to_excel('Results_Giornata_8_2020.xlsx')
+Output.to_excel('Results_Giornata_9_2020.xlsx')
 
 diff = y_test-y_pred
 plt.hist(diff,bins=100)

@@ -22,7 +22,7 @@ output['B365A'] = dataset['B365A']
 giornate = pd.DataFrame()
 giornate['Giornata'] = np.ones(10)
 
-for i in range(2,8):
+for i in range(2,9):
     print(i)
     nuova_giornata = pd.DataFrame()
     nuova_giornata['Giornata'] = np.ones(10)*i
