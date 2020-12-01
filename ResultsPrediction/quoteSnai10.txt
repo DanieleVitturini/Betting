@@ -1,0 +1,5 @@
+HomeTeam = ['Sampdoria', 'Crotone', 'Fiorentina', 'Verona', 'Inter', 'Parma', 'Roma', 'Udinese', 'Spezia', 'Juventus']
+AwayTeam = ['Milan', 'Napoli', 'Genoa', 'Cagliari', 'Bologna', 'Benevento', 'Sassuolo', 'Atalanta', 'Lazio', 'Torino']
+HomeWin = [4.5, 7.5, 1.75, 2.2, 1.5, 2.1, 1.75, 3.75, 5.5, 1.45]
+Draw = [3.9, 5.0, 3.8, 3.6, 4.75, 3.6, 4.0, 3.7, 4.0, 4.75]
+AwayWin = [1.8, 1.38, 4.75, 3.1, 6.0, 3.35, 4.25, 1.92, 1.6, 6.75]

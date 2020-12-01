@@ -62,9 +62,10 @@ dataset = dataset.replace("KOUAMÉ",'KOUAME')
 #dataset = dataset.replace("PEZZELLA GER.",'PEZZELLA')
 dataset = dataset.replace("SILVA",'A. SILVA')
 dataset = dataset.replace("RONALDO",'C. RONALDO')
-#dataset = dataset.replace("ZAPATA",'C. ZAPATA')
+dataset = dataset.replace(to_replace="DONNARUMMA",value='G. DONNARUMMA')
+dataset = dataset.replace(to_replace="C. ZAPATA",value='ZAPATA')
 #dataset = dataset.replace("PELLEGRINI",'LU. PELLEGRINI')
-#dataset = dataset.replace('LOPEZ','M. LOPEZ')
+dataset = dataset.replace(to_replace='LOPEZ',value='M.LOPEZ')
 
 
 for squadra in Casa:
