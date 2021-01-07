@@ -5,7 +5,7 @@ import pandas as pd
 
 # Importing the dataset
 dataset = pd.read_excel('FantaMedia_Squadre.xlsx')
-calendar = pd.read_excel('Calendar.xlsx')
+calendar = pd.read_excel('CalendarxG.xlsx')
 
 hometeam = []
 awayteam = []
@@ -23,6 +23,7 @@ inML['B365H'] = calendar['B365H']
 inML['B365D'] = calendar['B365D']
 inML['B365A'] = calendar['B365A']
 inML['Result'] = calendar['Result']
+#inML['Result'] = calendar['Over2.5']
 
 #Logistic regression
 inML = inML.dropna()
@@ -55,7 +56,7 @@ cm = confusion_matrix(y_test,y_pred)
 results = classifier.predict_proba(X_test)
 
 ###EVALUATING QUOTES WITH KELLY FACTOR ###
-InScommessa = pd.read_excel('Input_Scommessa_9.xlsx')
+InScommessa = pd.read_excel('Input_Scommessa_12.xlsx')
 kellyTest = InScommessa.iloc[:, 1:3].values
 
 kellyTest = sc_X.transform(kellyTest)
@@ -90,7 +91,7 @@ for i in range(0,len(kellyPredict)):
     kFact = ((b*p-q)/b)/2
     print(kFact)
     print("AWAY WIN")
-    b = HomeQuotes[i]-1
+    b = AwayQuotes[i]-1
     p = probability[i][0]
     q = 1-p
     kFact = ((b*p-q)/b)/2
@@ -118,7 +119,7 @@ for i in range(0,len(kellyPredict)):
     kFact = ((b*p-q)/b)
     print(kFact)
     print("AWAY WIN")
-    b = HomeQuotes[i]-1
+    b = AwayQuotes[i]-1
     p = probability[i][0]
     q = 1-p
     kFact = ((b*p-q)/b)

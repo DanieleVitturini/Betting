@@ -1,7 +1,7 @@
 #Create calendar file with quotes
 import pandas as pd
 import numpy as np
-
+#update file da https://www.football-data.co.uk/italym.php
 dataset = pd.read_csv('./SerieA2020.csv')
 
 dataset['HomeTeam'] = dataset['HomeTeam'].str.upper()
@@ -15,6 +15,9 @@ output['Result'] = 0 #Setting all results to Draw
 output.loc[dataset['FTHG']>dataset['FTAG'],'Result']=1 #Setting all home wins to 1
 output.loc[dataset['FTHG']<dataset['FTAG'],'Result']=-1 #Setting all away wins to -1
 
+output['Over2.5'] = 0 #Setting all results to Under
+output.loc[dataset['FTHG']+dataset['FTAG']>2.5,'Over2.5']=1
+
 output['B365H'] = dataset['B365H']
 output['B365D'] = dataset['B365D']
 output['B365A'] = dataset['B365A']
@@ -22,7 +25,7 @@ output['B365A'] = dataset['B365A']
 giornate = pd.DataFrame()
 giornate['Giornata'] = np.ones(10)
 
-for i in range(2,9):
+for i in range(2,15):
     print(i)
     nuova_giornata = pd.DataFrame()
     nuova_giornata['Giornata'] = np.ones(10)*i

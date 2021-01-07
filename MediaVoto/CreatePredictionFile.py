@@ -35,7 +35,7 @@ import pandas as pd
 
 dPlayers = pd.read_excel('MediaVoto_giocatori.xlsx')
 dTeam = pd.read_excel('FantaMedia_Squadre.xlsx')
-dCalendar = pd.read_excel('../Calendar.xlsx')
+dCalendar = pd.read_excel('../CalendarSerieA.xlsx')
 output = pd.DataFrame()
 
 #Giornate = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20']
@@ -43,7 +43,7 @@ Squadre = ['Atalanta','Benevento','Bologna','Cagliari','Crotone','Fiorentina','G
 Squadre = [x.upper() for x in Squadre]
 
 for club in Squadre:
-        output = CreateInputML(8,club,'8',output,dPlayers,dTeam,dCalendar) #SET THE NUMBER TO THE LAST GIORNATA PLAYED
+        output = CreateInputML(14,club,'14',output,dPlayers,dTeam,dCalendar) #SET THE NUMBER TO THE LAST GIORNATA PLAYED
 
 output.to_excel('ML_MediaVoto_prediction.xlsx')
 

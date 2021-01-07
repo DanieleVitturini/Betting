@@ -22,7 +22,7 @@ df = ChangeColumnName(df,"Giornata 2")
 output = pd.merge(dataset[['Cod.','Giocatore','Squadra','Ruolo','Giornata 1']],df[['Cod.','Giocatore','Squadra','Ruolo','Giornata 2']],on=['Cod.','Giocatore','Ruolo','Squadra'],how='outer')
 
 #Giornate = ['03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21']
-Giornate = np.arange(3,9) #le prime due sono già prese e merged. NB:metti secondo valore per giornata che vuoi predidiscere
+Giornate = np.arange(3,15) #le prime due sono già prese e merged. NB:metti secondo valore per giornata che vuoi predidiscere
 
 for giorn in Giornate:
     newdata = ImportData(str(giorn))

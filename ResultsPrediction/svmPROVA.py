@@ -1,33 +1,74 @@
-# Importing the libraries
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
 # Importing the dataset
-dataset = pd.read_excel('FantaMedia_Squadre.xlsx')
-calendar = pd.read_excel('Calendar.xlsx')
+dataset = pd.read_excel('FantaMedia_SquadrexG.xlsx')
+calendar = pd.read_excel('CalendarxG.xlsx')
+expgo = pd.read_excel('xG_tot_all.xlsx')
+expgoAG = pd.read_excel('xGA_tot_all.xlsx')
+gol = pd.read_excel('goals_tot_all.xlsx')
+golAG = pd.read_excel('goalsA_tot_all.xlsx')
 
 hometeam = []
 awayteam = []
 result = []
+xGhome = []
+xGaway = []
+xGAhome = []
+xGAaway = []
+golhome = []
+golaway = []
+golAhome = []
+golAaway = []
+
+
 for index, row in calendar.iterrows():
     #print(dataset.loc[(dataset['Squadra']==row['HomeTeam'])]['Giornata '+str(row['Giornata'])].values[0])
     hometeam.append(dataset.loc[(dataset['Squadra']==row['HomeTeam'])]['Giornata '+str(row['Giornata'])].values[0])
     awayteam.append(dataset.loc[(dataset['Squadra']==row['AwayTeam'])]['Giornata '+str(row['Giornata'])].values[0])
     
+for index, row in calendar.iterrows():
+    #print(dataset.loc[(dataset['Squadra']==row['HomeTeam'])]['Giornata '+str(row['Giornata'])].values[0])
+    xGhome.append(expgo.loc[(expgo['Squadra']==row['HomeTeam'])]['Giornata '+str(row['Giornata'])].values[0])
+    xGaway.append(expgo.loc[(expgo['Squadra']==row['AwayTeam'])]['Giornata '+str(row['Giornata'])].values[0])
+    
+for index, row in calendar.iterrows():
+    #print(dataset.loc[(dataset['Squadra']==row['HomeTeam'])]['Giornata '+str(row['Giornata'])].values[0])
+    xGAhome.append(expgoAG.loc[(expgoAG['Squadra']==row['HomeTeam'])]['Giornata '+str(row['Giornata'])].values[0])
+    xGAaway.append(expgoAG.loc[(expgoAG['Squadra']==row['AwayTeam'])]['Giornata '+str(row['Giornata'])].values[0])
+    
+for index, row in calendar.iterrows():
+    #print(dataset.loc[(dataset['Squadra']==row['HomeTeam'])]['Giornata '+str(row['Giornata'])].values[0])
+    golhome.append(gol.loc[(gol['Squadra']==row['HomeTeam'])]['Giornata '+str(row['Giornata'])].values[0])
+    golaway.append(gol.loc[(gol['Squadra']==row['AwayTeam'])]['Giornata '+str(row['Giornata'])].values[0])
+    
+for index, row in calendar.iterrows():
+    #print(dataset.loc[(dataset['Squadra']==row['HomeTeam'])]['Giornata '+str(row['Giornata'])].values[0])
+    golAhome.append(golAG.loc[(golAG['Squadra']==row['HomeTeam'])]['Giornata '+str(row['Giornata'])].values[0])
+    golAaway.append(golAG.loc[(golAG['Squadra']==row['AwayTeam'])]['Giornata '+str(row['Giornata'])].values[0])
+    
 inML = pd.DataFrame()
 inML['HomeTeam'] = 0
 inML['HomeTeam'] = hometeam
 inML['AwayTeam'] = awayteam
+inML['HomexG'] = xGhome
+inML['AwayxG'] = xGaway
+inML['HomexGA'] = xGAhome
+inML['AwayxGA'] = xGAaway
+inML['AwayGoal'] = golaway
+inML['HomeAG'] = golAhome
+inML['AwayAG'] = golAaway
 inML['B365H'] = calendar['B365H']
 inML['B365D'] = calendar['B365D']
 inML['B365A'] = calendar['B365A']
 inML['Result'] = calendar['Result']
+#inML['Result'] = calendar['Over2.5']
 
 #Logistic regression
 inML = inML.dropna()
 
-X = inML.iloc[:, 0:2].values
+X = inML.iloc[:, 0:6].values
 y = inML.iloc[:, -1].values
 
 from sklearn.model_selection import train_test_split #model selection
@@ -88,9 +129,9 @@ print(classification_report(y_test, y_pred_best))
 
 #2)RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
-n_estimators = [100, 300, 500, 800, 1200]
-max_depth = [5, 8, 15, 25, 30]
-min_samples_split = [2, 5, 10, 15, 100]
+n_estimators = [1 , 5, 10, 15, 20]
+max_depth = [2 , 5, 8, 15, 25, 30]
+min_samples_split = [2, 5, 10, 15]
 min_samples_leaf = [1, 2, 5, 10]
 param_grid = dict(n_estimators = n_estimators, max_depth = max_depth,  
               min_samples_split = min_samples_split, 
@@ -127,15 +168,39 @@ from sklearn.metrics import classification_report
 y_pred_best = best_model.predict(X_test)
 print(classification_report(y_test, y_pred_best))
 
+#GradientBoostingClassifier
+from sklearn.model_selection import GridSearchCV
+n_estimators = [10, 30, 50, 80, 120, 300]
+max_depth = [5, 8, 15, 25, 30]
+min_samples_split = [2, 5, 10, 15, 100]
+min_samples_leaf = [1, 2, 5, 10]
+param_grid = dict(n_estimators = n_estimators, max_depth = max_depth,  
+              min_samples_split = min_samples_split, 
+             min_samples_leaf = min_samples_leaf)
+gb = GradientBoostingClassifier()
+grid_search = GridSearchCV(estimator=gb, param_grid=param_grid)
+best_model = grid_search.fit(X_train, y_train)
+print(round(best_model.score(X_test, y_test),2))
+print(best_model.best_params_)
+
+from sklearn.metrics import classification_report
+y_pred_best = best_model.predict(X_test)
+print(classification_report(y_test, y_pred_best))
+
 #OLD PETER
 #Fitting the classifier to the Training set
 from sklearn.svm import SVC
-classifier = SVC(kernel='rbf', random_state=0, probability=True)
-classifier.fit(X_train,y_train)    
+best_model = SVC(kernel='rbf', random_state=0, probability=True)
+#best_model = RandomForestClassifier(max_depth=30, min_samples_leaf=5, min_samples_split=5, n_estimators=15)
+#best_model = GradientBoostingClassifier(max_depth=8, min_samples_leaf=2, min_samples_split=2, n_estimators=80)
+#best_model = SVC(kernel='sigmoid', C =1, coef0=0, degree=2, probability = True)
+best_model.fit(X_train,y_train)    
 
 #Predicting test results
+#LE 3 RIGHE SEGUENTI VANNO MODIFICATE SE SI VUOLE PROVARE NUOVO CLASSIFIER, in alternativa tenere riga 4
 #best_model=KNeighborsClassifier(3)
 #best_model.fit(X_train,y_train)
+#y_pred = best_model.predict(X_test)
 y_pred = best_model.predict(X_test)
 
 #Making the confusion matrix
@@ -146,18 +211,23 @@ cm = confusion_matrix(y_test,y_pred)
 results = best_model.predict_proba(X_test)
 
 ###EVALUATING QUOTES WITH KELLY FACTOR ###
-InScommessa = pd.read_excel('Input_Scommessa_9.xlsx')
-kellyTest = InScommessa.iloc[:, 1:3].values
+InScommessa = pd.read_excel('Input_Scommessa_15xG.xlsx')
+#InScommessa = pd.read_excel('Input_Scommessa_10xG_Jouez.xlsx')
+#InScommessa = pd.read_excel('Input_Scommessa_10xGVeri.xlsx')
+#InScommessa = pd.read_excel('Input_Scommessa_10xGStatistico.xlsx')
+kellyTestxG = InScommessa.iloc[:, 1:7].values
 
-kellyTest = sc_X.transform(kellyTest)
-kellyPredict = best_model.predict(kellyTest)
-probability = best_model.predict_proba(kellyTest)
+kellyTestxG = sc_X.transform(kellyTestxG)
+kellyPredictxG = best_model.predict(kellyTestxG)
+probabilityxG = best_model.predict_proba(kellyTestxG)
 
 HomeQuotes = InScommessa['HomeWin']
 DrawQuotes = InScommessa['Draw']
 AwayQuotes = InScommessa['AwayWin']
 Casa = InScommessa['Casa']
 Trasferta = InScommessa['Trasferta']
+CasaxG = InScommessa['HomexG']
+TrasfertaxG = InScommessa['AwayxG']
 
 budget = 10
 guadagno = 0
@@ -165,26 +235,32 @@ perdita = 0
 diff = 0
 spesa = 0
 
-for i in range(0,len(kellyPredict)): 
+for i in range(0,len(kellyPredictxG)): 
     print("#####")
     print("{0} vs {1}".format(Casa[i],Trasferta[i]))
     print("HOME WIN")
+    d = DrawQuotes[i]-1
     b = HomeQuotes[i]-1
-    p = probability[i][2]
+    p = probabilityxG[i][2]
     q = 1-p
     kFact = ((b*p-q)/b)/2
+    dnb = kFact/d
     print(kFact)
+    print("Draw No Bet 1: {}".format(dnb))
     print("DRAW")
     b = DrawQuotes[i]-1
-    p = probability[i][1]
+    p = probabilityxG[i][1]
     q = 1-p
     kFact = ((b*p-q)/b)/2
     print(kFact)
     print("AWAY WIN")
-    b = HomeQuotes[i]-1
-    p = probability[i][0]
+    d = DrawQuotes[i]-1
+    b = AwayQuotes[i]-1
+    p = probabilityxG[i][0]
     q = 1-p
     kFact = ((b*p-q)/b)/2
+    dnb = kFact/d
+    print("Draw No Bet 2: {}".format(dnb))
     print(kFact)
 
 budget = 10
@@ -209,7 +285,7 @@ for i in range(0,len(kellyPredict)):
     kFact = ((b*p-q)/b)
     print(kFact)
     print("AWAY WIN")
-    b = HomeQuotes[i]-1
+    b = AwayQuotes[i]-1
     p = probability[i][0]
     q = 1-p
     kFact = ((b*p-q)/b)

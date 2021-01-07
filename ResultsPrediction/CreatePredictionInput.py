@@ -1,11 +1,11 @@
 import pandas as pd
 import string
 
-dataset = pd.read_excel('../MediaVoto/Results_Giornata_9_2020.xlsx')
+dataset = pd.read_excel('../MediaVoto/Results_Giornata_15_2020.xlsx')
 
 output = pd.DataFrame()
 
-formazioni = pd.read_excel('rosegazzetta9.xlsx')
+formazioni = pd.read_excel('rosegazzetta15.xlsx')
 
 Atalanta = formazioni['ATA']
 Benevento = formazioni['BEN']
@@ -32,7 +32,8 @@ Formazioni = {'ATALANTA':Atalanta,'BENEVENTO':Benevento,'BOLOGNA':Bologna,'CAGLI
 #Casa = ['BRESCIA','BOLOGNA','SPAL','FIORENTINA','GENOA','ATALANTA','TORINO','VERONA','ROMA','INTER']
 #Trasferta = ['NAPOLI','UDINESE','JUVENTUS','MILAN','LAZIO','SASSUOLO','PARMA','CAGLIARI','LECCE','SAMPDORIA']
 
-quote = pd.read_excel('Snai_quotes_2020_9.xlsx')
+quote = pd.read_excel('quotesnai15.xlsx')
+#quote = pd.read_excel('Snai_quotes_2020_9.xlsx')
 Casa = quote['HomeTeam'].str.upper()
 Trasferta = quote['AwayTeam'].str.upper()
 
@@ -53,19 +54,20 @@ dataset = dataset.replace('PERES','BRUNO PERES')
 dataset = dataset.replace('ÜNDER','UNDER')
 dataset = dataset.replace('DIAZ','BRAHIM DIAZ')
 dataset = dataset.replace('ALVES','BRUNO ALVES')
-dataset = dataset.replace('NKOULOU',"N'KOULOU")
+#dataset = dataset.replace('NKOULOU',"N'KOULOU")
 dataset = dataset.replace('MEITE','MEITÉ')
 dataset = dataset.replace("MONTIPO'",'MONTIPÒ')
 #dataset = dataset.replace("MARIO RUI",'M. RUI')
-dataset = dataset.replace("RUIZ",'FABIAN RUIZ')
+#dataset = dataset.replace("RUIZ",'FABIAN')
 dataset = dataset.replace("KOUAMÉ",'KOUAME')
 #dataset = dataset.replace("PEZZELLA GER.",'PEZZELLA')
-dataset = dataset.replace("SILVA",'A. SILVA')
-dataset = dataset.replace("RONALDO",'C. RONALDO')
+#dataset = dataset.replace("SILVA",'A. SILVA')
+dataset = dataset.replace(to_replace="C. RONALDO",value='RONALDO')
 dataset = dataset.replace(to_replace="DONNARUMMA",value='G. DONNARUMMA')
 dataset = dataset.replace(to_replace="C. ZAPATA",value='ZAPATA')
-#dataset = dataset.replace("PELLEGRINI",'LU. PELLEGRINI')
-dataset = dataset.replace(to_replace='LOPEZ',value='M.LOPEZ')
+dataset = dataset.replace("MALINOVSKIY",'MALINOVSKYI')
+dataset = dataset.replace(to_replace='HENRIQUE',value='EDUARDO')
+#dataset = dataset.replace(to_replace="SHOMURODOV",value='SHOUMODUROV')
 
 
 for squadra in Casa:
@@ -95,10 +97,50 @@ for squadra in Trasferta:
 output['HomeTeam'] = HomeMV
 output['AwayTeam'] = AwayMV
 
+#reading xG
+#qui leggi i file di xGA, goals e goalsAG
+df_xG = pd.read_excel("xG_tot_all.xlsx")
+df_xGA = pd.read_excel("xGA_tot_all.xlsx")
+df_Goals = pd.read_excel("goals_tot_all.xlsx")
+df_GoalsAG = pd.read_excel("goalsA_tot_all.xlsx")
+
+Home_xG = []
+Home_xGA = []
+Home_Goals = []
+Home_Goals_AG = []
+
+for squadra in Casa:
+    Home_xG.append(df_xG[df_xG.Squadra.isin([squadra])].iloc[0]['Giornata 14'])
+    Home_xGA.append(df_xGA[df_xGA.Squadra.isin([squadra])].iloc[0]['Giornata 14'])
+    Home_Goals.append(df_Goals[df_Goals.Squadra.isin([squadra])].iloc[0]['Giornata 14'])
+    Home_Goals_AG.append(df_GoalsAG[df_Goals.Squadra.isin([squadra])].iloc[0]['Giornata 14'])
+    
+    
+Away_xG = []
+Away_xGA = []
+Away_Goals = []
+Away_Goals_AG = []
+
+for squadra in Trasferta:
+    Away_xG.append(df_xG[df_xG.Squadra.isin([squadra])].iloc[0]['Giornata 14'])
+    Away_xGA.append(df_xGA[df_xGA.Squadra.isin([squadra])].iloc[0]['Giornata 14'])
+    Away_Goals.append(df_Goals[df_Goals.Squadra.isin([squadra])].iloc[0]['Giornata 14'])
+    Away_Goals_AG.append(df_GoalsAG[df_Goals.Squadra.isin([squadra])].iloc[0]['Giornata 14'])
+
+output['HomexG'] = Home_xG
+output['AwayxG'] = Away_xG
+output['HomexGA'] = Home_xGA
+output['AwayxGA'] = Away_xGA
+
+output['Home_goals'] = Home_Goals
+output['Away_goals'] = Away_Goals
+output['Homex_goalsAG'] = Home_Goals_AG
+output['Awayx_goalsAG'] = Away_Goals_AG
+
 output['HomeWin'] = quote['HomeWin']
 output['Draw'] = quote['Draw']
 output['AwayWin'] = quote['AwayWin']
 output['Casa'] = Casa
 output['Trasferta'] = Trasferta
 
-output.to_excel('Input_Scommessa_9.xlsx')
+output.to_excel('Input_Scommessa_15xG.xlsx')

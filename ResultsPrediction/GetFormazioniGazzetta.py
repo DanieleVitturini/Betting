@@ -70,13 +70,13 @@ for i in range(N_Squadre):
     #print(squadra)
     formazione = [Squadra]    
     #print(formazione)
-    file= open("roseGazzetta9.txt", "a")
+    file= open("roseGazzetta15.txt", "a")
     file.write("{} = {}".format(squadra,lista))
     file.write("\n")
     file.close()
 
-file= open("roseGazzetta9.txt", "r")
+file= open("roseGazzetta15.txt", "r")
 print(file.read())
 file.close()
 
-out_df.to_excel('rosegazzetta9.xlsx')
+out_df.to_excel('rosegazzetta15.xlsx')
