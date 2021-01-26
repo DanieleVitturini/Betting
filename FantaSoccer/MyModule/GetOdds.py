@@ -23,6 +23,9 @@ def Get888(league,giornata):
     if(league=="Ligue1"):
         url = 'https://www.888sport.com/#/filter/football/france/ligue_1'
         num_matches=10
+    if(league=="Liga"):
+        url = "https://www.888sport.it/#/filter/football/spain/la_liga"
+        num_matches = 10
     odds = api.odds(url)
     odds = odds[:num_matches]
     

@@ -19,6 +19,8 @@ def ScrapLineUps(league,giornata):
         url = "https://www.rotowire.com/soccer/lineups.php?league=SERI"
     if(league=="Ligue1"):
         url = "https://www.rotowire.com/soccer/lineups.php?league=FRAN"
+    if(league=="Liga"):
+        url = "https://www.rotowire.com/soccer/lineups.php?league=LIGA"
     res = requests.get(url) 
     soup = BeautifulSoup(res.content, "lxml")
             
@@ -49,15 +51,26 @@ def ScrapLineUps(league,giornata):
     out_df.to_excel(league+"/Lineups_"+str(giornata)+".xlsx")
     return out_df
 
-def GetRealLineUps(league,giornata):
+def GetRealLineUps(league,giornata,source):
 
     if(league=="SerieA"):
-        df_voti = pd.read_excel("../Voti/"+league+"/Voti_"+str(giornata)+"a_SerieA.xlsx")
+        df_voti = pd.read_excel("../Voti/"+league+"/"+source+"/Voti_"+str(giornata)+"a_SerieA.xlsx")
         teams = ['Atalanta','Bologna','Benevento','Cagliari','Fiorentina','Genoa','Inter','Juventus','Lazio','Crotone','Milan','Napoli','Parma','Roma','Sampdoria','Sassuolo','Spezia','Torino','Udinese','Verona']
+    if(league=="Bundesliga"):
+        df_voti = pd.read_excel("../Voti/"+league+"/"+source+"/Voti_"+str(giornata)+"a_SerieE.xlsx")
+        teams = ['Arminia Bielefeld','Augsburg','Bayern Monaco','Borussia Dortmund','Borussia MGladbach','Colonia','Eintracht Francoforte','Friburgo','Hertha','Hoffenheim','Leverkusen','Mainz','RB Lipsia','Schalke 04','Stoccarda','Union Berlino','Werder Brema','Wolfsburg']
+    if(league=="Liga"):
+        df_voti = pd.read_excel("../Voti/"+league+"/"+source+"/Voti_"+str(giornata)+"a_SerieD.xlsx")
+        teams = ['Alaves','Athletic Bilbao','Atletico Madrid','Barcellona','Cadiz','Celta Vigo','Eibar','Elche CF','Getafe','Granada CF','Levante','CA Osasuna','Betis','Real Madrid','Real Sociedad','Valladolid','Huesca','Siviglia','Valencia','Villarreal']
+    if(league=="Ligue1"):
+        df_voti = pd.read_excel("../Voti/"+league+"/"+source+"/Voti_"+str(giornata)+"a_SerieF.xlsx")
+        teams = ['Angers','Bordeaux','Brest','Digione','Lens','Lille','Lorient','Lione','Marsiglia','Metz','Monaco','Montpellier','Nantes','Nizza','Nimes','PSG','Reims','Rennes','Saint-Etienne','Strasburgo']
 
     df_team = {}    
     out_df = pd.DataFrame()
         
+    if source=="Mediaset":
+        df_voti = df_voti.rename(columns={"Voto DS_SM":"Voto FS"})
     for t in teams:
         df_team[t] = df_voti[(df_voti['Squadra']==t) & (df_voti['Voto FS']!=0) & (df_voti['Voto FS']!="SV")]
         df_team[t] = df_team[t].replace(np.nan,"")
@@ -73,6 +86,7 @@ def GetRealLineUps(league,giornata):
         Lineup_team = np.array(lineup)
         out_df[t] = pd.Series(Lineup_team)
     
+    #SERIE A   
     out_df = out_df.replace(np.nan,"")    
     out_df.to_excel(league+"/RealLineups_"+str(giornata)+".xlsx") 
     return out_df

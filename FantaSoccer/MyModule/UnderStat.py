@@ -53,12 +53,14 @@ def FixTeamName(df,columns):
 
 def CreateResults(league,giornata):
     if(league=="Bundesliga"):
-       teams = ['Arminia_Bielefeld','Augsburg','Bayer_Leverkusen','Bayern_Munich','Borussia_Dortmund','Borussia_M.Gladbach','Eintracht_Frankfurt','FC_Cologne','Freiburg','Hertha_Berlin','Hoffenheim','Mainz_05','RasenBallsport_Leipzig','Schalke_04','Union_Berlin','VfB_Stuttgart','Werder_Bremen','Wolfsburg']
+       teams = ['Arminia Bielefeld','Augsburg','Leverkusen','Bayern Monaco','Borussia Dortmund','Borussia MGladbach','Eintracht Francoforte','Colonia','Friburgo','Hertha','Hoffenheim','Mainz','RB Lipsia','Schalke 04','Union Berlino','Stoccarda','Werder Brema','Wolfsburg']
     if(league=="SerieA"):
         teams = ['Atalanta','Bologna','Crotone','Cagliari','Fiorentina','Genoa','Inter','Juventus','Lazio','Benevento','Milan','Napoli','Parma','Roma','Sampdoria','Sassuolo','Spezia','Torino','Udinese','Verona']
     if(league=="Ligue1"):
         teams = ['Angers','Bordeaux','Brest','Digione','Lens','Lille','Lorient','Lione','Marsiglia','Metz','Monaco','Montpellier','Nantes','Nizza','Nimes','PSG','Reims','Rennes','Saint-Etienne','Strasburgo']
-   
+    if(league=="Liga"):
+        teams = ['Alaves','Athletic Bilbao','Atletico Madrid','Barcellona','Cadiz','Celta Vigo','Eibar','Elche CF','Getafe','Granada CF','Levante','CA Osasuna','Betis','Real Madrid','Real Sociedad','Valladolid','Huesca','Siviglia','Valencia','Villarreal']
+
     df = {}
     
     for t in teams:
@@ -88,9 +90,11 @@ def Create_xGFiles(league,giornata):
         print("Getting PremierLeague xG")
         teams = ['Arsenal','Aston_Villa','Brighton','Burnley','Chelsea','Crystal_Palace','Everton','Fulham','Leeds','Leicester','Liverpool','Manchester_City','Manchester_United','Newcastle_United','Sheffield_United','Southampton','Tottenham','West_Bromwich_Albion','West_Ham','Wolverhampton_Wanderers']
     if(league=="Bundesliga"):
-        teams = ['Arminia_Bielefeld','Augsburg','Bayer_Leverkusen','Bayern_Munich','Borussia_Dortmund','Borussia_M.Gladbach','Eintracht_Frankfurt','FC_Cologne','Freiburg','Hertha_Berlin','Hoffenheim','Mainz_05','RasenBallsport_Leipzig','Schalke_04','Union_Berlin','VfB_Stuttgart','Werder_Bremen','Wolfsburg']
+        teams = ['Arminia Bielefeld','Augsburg','Leverkusen','Bayern Monaco','Borussia Dortmund','Borussia MGladbach','Eintracht Francoforte','Colonia','Friburgo','Hertha','Hoffenheim','Mainz','RB Lipsia','Schalke 04','Union Berlino','Stoccarda','Werder Brema','Wolfsburg']
     if(league=="Ligue1"):
         teams = ['Angers','Bordeaux','Brest','Digione','Lens','Lille','Lorient','Lione','Marsiglia','Metz','Monaco','Montpellier','Nantes','Nizza','Nimes','PSG','Reims','Rennes','Saint-Etienne','Strasburgo']
+    if(league=="Liga"):
+        teams = ['Alaves','Athletic Bilbao','Atletico Madrid','Barcellona','Cadiz','Celta Vigo','Eibar','Elche CF','Getafe','Granada CF','Levante','CA Osasuna','Betis','Real Madrid','Real Sociedad','Valladolid','Huesca','Siviglia','Valencia','Villarreal']
 
 
     df_xG_home = pd.DataFrame()
@@ -172,7 +176,8 @@ def Get_xGTeams(league):
         team_list = ['Arminia_Bielefeld','Augsburg','Bayer_Leverkusen','Bayern_Munich','Borussia_Dortmund','Borussia_M.Gladbach','Eintracht_Frankfurt','FC_Cologne','Freiburg','Hertha_Berlin','Hoffenheim','Mainz_05','RasenBallsport_Leipzig','Schalke_04','Union_Berlin','VfB_Stuttgart','Werder_Bremen','Wolfsburg']
     if(league=="Ligue1"):
         team_list = ['Angers','Bordeaux','Brest','Dijon','Lens','Lille','Lorient','Lyon','Marseille','Metz','Monaco','Montpellier','Nantes','Nice','Nimes','Paris Saint Germain','Reims','Rennes','Saint-Etienne','Strasbourg']
-    
+    if(league=="Liga"):
+        team_list = ['Alaves','Athletic_Club','Atletico_Madrid','Barcelona','Cadiz','Celta_Vigo','Eibar','Elche','Getafe','Granada','Levante','Osasuna','Real_Betis','Real_Madrid','Real_Sociedad','Real_Valladolid','SD_Huesca','Sevilla','Valencia','Villarreal']
     for team in team_list:
         url = "https://understat.com/team/"+team+"/2020"
         res = requests.get(url) 
@@ -182,7 +187,7 @@ def Get_xGTeams(league):
         
         string_with_json_obj = '' 
         cont = []
-        
+        print(url)
         for el in scripts: 
             cont.append(el.contents)
             if 'datesData' in el.contents: 
@@ -237,6 +242,8 @@ def CreateCalendar(league):
         team_list = ['Arminia_Bielefeld','Augsburg','Bayer_Leverkusen','Bayern_Munich','Borussia_Dortmund','Borussia_M.Gladbach','Eintracht_Frankfurt','FC_Cologne','Freiburg','Hertha_Berlin','Hoffenheim','Mainz_05','RasenBallsport_Leipzig','Schalke_04','Union_Berlin','VfB_Stuttgart','Werder_Bremen','Wolfsburg']
     if(league=="Ligue1"):
         team_list = ['Angers','Bordeaux','Brest','Dijon','Lens','Lille','Lorient','Lyon','Marseille','Metz','Monaco','Montpellier','Nantes','Nice','Nimes','Paris Saint Germain','Reims','Rennes','Saint-Etienne','Strasbourg']
+    if(league=="Liga"):
+        team_list = ['Alaves','Athletic_Club','Atletico_Madrid','Barcelona','Cadiz','Celta_Vigo','Eibar','Elche','Getafe','Granada','Levante','Osasuna','Real_Betis','Real_Madrid','Real_Sociedad','Real_Valladolid','SD_Huesca','Sevilla','Valencia','Villarreal']
 
     output = pd.DataFrame()
     
@@ -299,7 +306,7 @@ def CreateCalendar(league):
             team_text = "Union Berlino"
         if(t=="Werder Bremen"): 
             team_text = "Werder Brema"
-            
+        #LIGA    
         output[team_text.upper()+"Opponent"] = opponent
         output[team_text.upper()+"IsHome"] = isHome
     #and inside the dataframe (need to change both!!)
@@ -334,6 +341,10 @@ def Fix_xGFiles(league,dCalendar,giornata):
         team_list = ['Atalanta','Bologna','Crotone','Cagliari','Fiorentina','Genoa','Inter','Juventus','Lazio','Benevento','AC_Milan','Napoli','Parma_Calcio_1913','Roma','Sampdoria','Sassuolo','Spezia','Torino','Udinese','Verona']
     if(league=="Ligue1"):
         team_list = ['Angers','Bordeaux','Brest','Dijon','Lens','Lille','Lorient','Lyon','Marseille','Metz','Monaco','Montpellier','Nantes','Nice','Nimes','Paris Saint Germain','Reims','Rennes','Saint-Etienne','Strasbourg']
+    if(league=="Bundesliga"):
+        team_list = ['Arminia_Bielefeld','Augsburg','Bayer_Leverkusen','Bayern_Munich','Borussia_Dortmund','Borussia_M.Gladbach','Eintracht_Frankfurt','FC_Cologne','Freiburg','Hertha_Berlin','Hoffenheim','Mainz_05','RasenBallsport_Leipzig','Schalke_04','Union_Berlin','VfB_Stuttgart','Werder_Bremen','Wolfsburg']
+    if(league=="Liga"):
+        team_list = ['Alaves','Athletic_Club','Atletico_Madrid','Barcelona','Cadiz','Celta_Vigo','Eibar','Elche','Getafe','Granada','Levante','Osasuna','Real_Betis','Real_Madrid','Real_Sociedad','Real_Valladolid','SD_Huesca','Sevilla','Valencia','Villarreal']
 
     for t in team_list:
         old_xG = pd.read_excel('../xG/'+league+'/'+t+'_matches_2020.xlsx')
@@ -348,7 +359,56 @@ def Fix_xGFiles(league,dCalendar,giornata):
         old_xG = old_xG.replace("Nice","Nizza")
         old_xG = old_xG.replace("Paris Saint Germain","PSG")
         old_xG = old_xG.replace("Strasbourg","Strasburgo")
+        #BUNDESLIGA
+        old_xG = old_xG.replace("Bayern Munich","Bayern Monaco")
+        old_xG = old_xG.replace("Borussia M.Gladbach","Borussia MGladbach")
+        old_xG = old_xG.replace("FC Cologne","Colonia")
+        old_xG = old_xG.replace("Eintracht Frankfurt","Eintracht Francoforte")
+        old_xG = old_xG.replace("Freiburg","Friburgo")
+        old_xG = old_xG.replace("Hertha Berlin","Hertha")
+        old_xG = old_xG.replace("Bayer Leverkusen","Leverkusen")
+        old_xG = old_xG.replace("Mainz 05","Mainz")
+        old_xG = old_xG.replace("RasenBallsport Leipzig","RB Lipsia")
+        old_xG = old_xG.replace("VfB Stuttgart","Stoccarda")
+        old_xG = old_xG.replace("Union Berlin","Union Berlino")
+        old_xG = old_xG.replace("Werder Bremen","Werder Brema")
+        #LIGA
+        old_xG = old_xG.replace('Athletic Club','Athletic Bilbao')
+        old_xG = old_xG.replace('Barcelona','Barcellona')
+        old_xG = old_xG.replace('Real Betis','Betis')
+        old_xG = old_xG.replace('Osasuna','CA Osasuna')
+        old_xG = old_xG.replace('Elche','Elche CF')
+        old_xG = old_xG.replace('Granada','Granada CF')
+        old_xG = old_xG.replace('SD Huesca','Huesca')
+        old_xG = old_xG.replace('Sevilla','Siviglia')
+        old_xG = old_xG.replace('Real Valladolid','Valladolid')
         
+        if t =='Athletic_Club':
+            t = 'Athletic Bilbao'
+        if t =='Barcelona':
+            t = 'Barcellona'
+        if t =='Real_Betis':
+            t = 'Betis'  
+        if t =='Osasuna':
+            t = 'CA Osasuna'
+        if t =='Elche':
+            t = 'Elche CF'
+        if t =='Granada':
+            t = 'Granada CF'
+        if t =='SD_Huesca':
+            t = 'Huesca'
+        if t =='Sevilla':
+            t = 'Siviglia'
+        if t =='Real_Valladolid':
+            t = 'Valladolid'
+        if t =='Atletico_Madrid':
+            t = 'Atletico Madrid'
+        if t =='Real_Madrid':
+            t = 'Real Madrid'
+        if t =='Celta_Vigo':
+            t = 'Celta Vigo'
+        if t =='Real_Sociedad':
+            t = 'Real Sociedad'
         if t=='AC_Milan':
             t = 'Milan'
         if t=='Parma_Calcio_1913':
@@ -365,7 +425,36 @@ def Fix_xGFiles(league,dCalendar,giornata):
             t = 'PSG'
         if t=='Strasbourg':
             t = 'Strasburgo'
-            
+        if(t=="Bayern_Munich"): 
+            t = "Bayern Monaco" 
+        if(t=="Borussia_M.Gladbach"): 
+            t = "Borussia MGladbach" 
+        if(t=="FC_Cologne"): 
+            t = "Colonia" 
+        if(t=="Eintracht_Frankfurt"): 
+            t = "Eintracht Francoforte" 
+        if(t=="Freiburg"): 
+            t = "Friburgo" 
+        if(t=="Hertha_Berlin"): 
+            t = "Hertha" 
+        if(t=="Bayer_Leverkusen"): 
+            t = "Leverkusen"
+        if(t=="Mainz_05"): 
+            t = "Mainz"
+        if(t=="RasenBallsport_Leipzig"): 
+            t = "RB Lipsia"
+        if(t=="VfB_Stuttgart"): 
+            t = "Stoccarda"
+        if(t=="Union_Berlin"): 
+            t = "Union Berlino"
+        if(t=="Werder_Bremen"): 
+            t = "Werder Brema"
+        if (t=="Arminia_Bielefeld"):
+            t = "Arminia Bielefeld"
+        if (t=="Borussia_Dortmund"):
+            t = "Borussia Dortmund"
+        if (t=="Schalke_04"):
+            t = "Schalke 04"
         new_home = []
         new_away = []
         new_xG_h = []
@@ -377,6 +466,8 @@ def Fix_xGFiles(league,dCalendar,giornata):
             opp = row[t.upper()+'Opponent']
             isHome = row[t.upper()+'IsHome']
             if(isHome):
+                print(t)
+                print(opp)
                 new_home.append(t)
                 new_away.append(old_xG[old_xG['away'].str.upper()==opp]['away'].iloc[0])
                 #fix for shifted matches which don't have data yet
@@ -391,6 +482,8 @@ def Fix_xGFiles(league,dCalendar,giornata):
                     new_goals_h.append(old_xG[old_xG['away'].str.upper()==opp]['goals_home'].iloc[0])
                     new_goals_a.append(old_xG[old_xG['away'].str.upper()==opp]['goals_away'].iloc[0])
             else:
+                print(t)
+                print(opp)
                 new_away.append(t)
                 new_home.append(old_xG[old_xG['home'].str.upper()==opp]['home'].iloc[0])
                 #fix for shifted matches which don't have data yet
