@@ -1,0 +1,178 @@
+##### 0
+Totale partite giocabili:  27
+Partite indovinate M1:  18
+Percentuale indovinata M1:  66.66666666666667
+Spesa M1:  4.108637988995131
+Guadagno M1:  8.579061284614856
+Pctg M1:  108.80548024901744
+------------------------------------
+Totale partite giocabili:  25
+Partite indovinate Vader:  17
+Percentuale indovinata Vader:  62.96296296296296
+Spesa Vader:  4.15830241187384
+Guadagno Vader:  5.595072622483337
+Pctg Vader:  34.55184515938202
+------------------------------------
+Pctg M1 - Vader:  74.25363508963542
+
+
+##### 1
+Totale partite giocabili:  20
+Partite indovinate M1:  15
+Percentuale indovinata M1:  75.0
+Spesa M1:  2.7388082155939295
+Guadagno M1:  4.846713572142143
+Pctg M1:  76.96432866479844
+------------------------------------
+Totale partite giocabili:  23
+Partite indovinate Vader:  18
+Percentuale indovinata Vader:  90.0
+Spesa Vader:  4.438258434687005
+Guadagno Vader:  5.2349148376756105
+Pctg Vader:  17.949752469625793
+------------------------------------
+Pctg M1 - Vader:  59.01457619517265
+
+
+##### 2
+Totale partite giocabili:  27
+Partite indovinate M1:  14
+Percentuale indovinata M1:  51.851851851851855
+Spesa M1:  4.208097193811479
+Guadagno M1:  5.47554409281195
+Pctg M1:  30.119240136953263
+------------------------------------
+Totale partite giocabili:  25
+Partite indovinate Vader:  13
+Percentuale indovinata Vader:  48.148148148148145
+Spesa Vader:  4.917439438868009
+Guadagno Vader:  4.771595166738024
+Pctg Vader:  -2.9658580231251155
+------------------------------------
+Pctg M1 - Vader:  33.08509816007838
+
+
+##### 3
+Totale partite giocabili:  25
+Partite indovinate M1:  10
+Percentuale indovinata M1:  40.0
+Spesa M1:  5.218644252572824
+Guadagno M1:  7.499422839065696
+Pctg M1:  43.70442735904893
+------------------------------------
+Totale partite giocabili:  27
+Partite indovinate Vader:  13
+Percentuale indovinata Vader:  52.0
+Spesa Vader:  5.6547742601314015
+Guadagno Vader:  5.337568652946804
+Pctg Vader:  -5.609518481065347
+------------------------------------
+Pctg M1 - Vader:  49.31394584011427
+
+
+##### 4
+Totale partite giocabili:  24
+Partite indovinate M1:  13
+Percentuale indovinata M1:  54.166666666666664
+Spesa M1:  3.174308892166035
+Guadagno M1:  6.826874489928062
+Pctg M1:  115.06648287368297
+------------------------------------
+Totale partite giocabili:  25
+Partite indovinate Vader:  11
+Percentuale indovinata Vader:  45.833333333333336
+Spesa Vader:  5.059989084989085
+Guadagno Vader:  4.945894353940407
+Pctg Vader:  -2.25484144594601
+------------------------------------
+Pctg M1 - Vader:  117.32132431962899
+
+
+##### 5
+Totale partite giocabili:  29
+Partite indovinate M1:  10
+Percentuale indovinata M1:  34.48275862068966
+Spesa M1:  4.653369051583337
+Guadagno M1:  5.8796829777365485
+Pctg M1:  26.353248851731422
+------------------------------------
+Totale partite giocabili:  25
+Partite indovinate Vader:  11
+Percentuale indovinata Vader:  37.93103448275862
+Spesa Vader:  5.251799192870622
+Guadagno Vader:  3.873852064602064
+Pctg Vader:  -26.23762024525113
+------------------------------------
+Pctg M1 - Vader:  52.59086909698255
+
+
+##### 6
+Totale partite giocabili:  28
+Partite indovinate M1:  17
+Percentuale indovinata M1:  60.714285714285715
+Spesa M1:  3.873718807647379
+Guadagno M1:  5.642800324675325
+Pctg M1:  45.66881606211268
+------------------------------------
+Totale partite giocabili:  26
+Partite indovinate Vader:  17
+Percentuale indovinata Vader:  60.714285714285715
+Spesa Vader:  4.667615255115254
+Guadagno Vader:  3.57851461038961
+Pctg Vader:  -23.33312805788984
+------------------------------------
+Pctg M1 - Vader:  69.00194412000252
+
+
+##### 7
+Totale partite giocabili:  30
+Partite indovinate M1:  17
+Percentuale indovinata M1:  56.666666666666664
+Spesa M1:  3.461396077467506
+Guadagno M1:  4.040842478949622
+Pctg M1:  16.740251289186812
+------------------------------------
+Totale partite giocabili:  27
+Partite indovinate Vader:  16
+Percentuale indovinata Vader:  53.333333333333336
+Spesa Vader:  4.614837477337476
+Guadagno Vader:  3.1462640415140415
+Pctg Vader:  -31.822863601054177
+------------------------------------
+Pctg M1 - Vader:  48.56311489024099
+
+
+##### 8
+Totale partite giocabili:  28
+Partite indovinate M1:  15
+Percentuale indovinata M1:  53.57142857142857
+Spesa M1:  4.020775851132995
+Guadagno M1:  4.812606593803022
+Pctg M1:  19.693481357507178
+------------------------------------
+Totale partite giocabili:  32
+Partite indovinate Vader:  21
+Percentuale indovinata Vader:  75.0
+Spesa Vader:  7.016307700236272
+Guadagno Vader:  6.618845895999499
+Pctg Vader:  -5.66482858531687
+------------------------------------
+Pctg M1 - Vader:  25.358309942824047
+
+
+##### 9
+Totale partite giocabili:  29
+Partite indovinate M1:  14
+Percentuale indovinata M1:  48.275862068965516
+Spesa M1:  3.8525937686651965
+Guadagno M1:  4.866289127539127
+Pctg M1:  26.312023009504692
+------------------------------------
+Totale partite giocabili:  23
+Partite indovinate Vader:  11
+Percentuale indovinata Vader:  37.93103448275862
+Spesa Vader:  4.160454889026317
+Guadagno Vader:  4.683350614439323
+Pctg Vader:  12.568234468596316
+------------------------------------
+Pctg M1 - Vader:  13.743788540908376
